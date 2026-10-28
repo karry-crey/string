@@ -145,10 +145,89 @@ void test_string7() {
 
 }
 
+string findsuffix(const string& filename) {
+	size_t i = filename.rfind('.');
+	if (i != string::npos) {
+		return filename.substr(i);
+	}
+	else {
+		//string empty;
+		//return empty;
+		//return string();//返回匿名对象
+		return "";//隐式类型转换 const char* 可以隐式转换成string
+	}
+}
+
+//void split_url(const string& url) {
+//	size_t i1 = url.find(':');
+//	if (i1 != string::npos) {
+//		cout << url.substr(0,i1) << endl;
+//	}
+//	size_t i2 = i1 + 3;
+//	size_t i3 = url.find('/', i2);
+//	if (i3 != string::npos) {
+//		cout << url.substr(i2, i3 - i2) << endl;
+//		cout << url.substr(i3+1) << endl;
+//	}
+//
+//	cout << endl;
+//}
+
+vector<string> split_url(const string& url) {
+
+	vector<string> v;
+	size_t i1 = url.find(':');
+	if (i1 != string::npos) {
+		v.push_back(url.substr(0, i1));
+	}
+	size_t i2 = i1 + 3;
+	size_t i3 = url.find('/', i2);
+	if (i3 != string::npos) {
+		v.push_back(url.substr(i2, i3 - i2));
+		v.push_back(url.substr(i3 + 1));
+	}
+
+	return v;
+}
+
+
+void test_string8() {
+	string filename("test.cpp");
+	//string str1 = filename.substr(4, filename.size() - 4);
+	string str1 = filename.substr(4);
+	cout << str1 << endl;
+}
+
+void test_string9() {
+	string filename1("test.cpp");
+	string filename2("test.c");
+	string filename3("test");
+	string filename4("test.cpp.tar");
+	cout << findsuffix(filename1) << endl;
+	cout << findsuffix(filename2) << endl;
+	cout << findsuffix(filename3) << endl;
+	cout << findsuffix(filename4) << endl;
+
+	string url1 = "https://deepseek.com/api";
+	vector<string> ret= split_url(url1);
+	//string ip = dns_reuest(ret[1].c_str());
+
+}
+
+void test_string10() {
+	string s1("http");
+	string s2("httpz");
+	const char* str = "hello";
+	bool b1 = s1 == s2;
+	bool b2 = s1 == str;
+	bool b3 = str == s1;
+	cout << b1 << b2 << b3 << endl;
+}
+
 
 int main() {
 	try {
-		test_string7();
+		test_string10();
 	}
 	catch(const exception& e){
 		cout << e.what() << endl;
